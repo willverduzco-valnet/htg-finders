@@ -1,0 +1,34 @@
+# Republishes data/catalog.json from the "HTG Finders - Inputs" Google Sheet: nightly, or on demand from the
+# Actions tab ("Update from sheet" > "Run workflow"). Needs the secret GOOGLE_SA_KEY (a service account key the sheet
+# is shared with) and the variable FINDERS_SHEET_ID (the sheet's ID) in Settings > Secrets and variables > Actions.
+name: Update from sheet
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+permissions:
+  contents: write
+concurrency:
+  group: update-from-sheet
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Rebuild the catalog from the sheet
+        run: node tools/update-catalog.mjs
+        env:
+          GOOGLE_SA_KEY: ${{ secrets.GOOGLE_SA_KEY }}
+          FINDERS_SHEET_ID: ${{ vars.FINDERS_SHEET_ID }}
+      - name: Publish if anything changed
+        run: |
+          git add data/catalog.json logos
+          if git diff --cached --quiet; then
+            echo "No changes from the sheet."
+            exit 0
+          fi
+          git -c user.name="htg-finders bot" -c user.email="actions@users.noreply.github.com" commit -m "Update catalog from the inputs sheet"
+          git push
