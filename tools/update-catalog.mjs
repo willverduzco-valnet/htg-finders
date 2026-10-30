@@ -113,6 +113,12 @@ async function sheets(path3, init = {}) {
   if (!res.ok) throw new Error(`Sheets ${init.method ?? "GET"} ${path3.split("?")[0]}: ${res.status} ${json.error?.message ?? ""}`);
   return json;
 }
+async function tabsOf(id2) {
+  const m = await sheets(
+    `${id2}?fields=sheets.properties(title,sheetId,gridProperties)`
+  );
+  return m.sheets.map((s) => ({ title: s.properties.title, sheetId: s.properties.sheetId, ...s.properties.gridProperties }));
+}
 async function readTabs(id2, titles) {
   const q = titles.map((t) => `ranges=${encodeURIComponent(`'${t}'`)}`).join("&");
   const r = await sheets(`${id2}/values:batchGet?${q}&valueRenderOption=UNFORMATTED_VALUE`);
@@ -424,11 +430,39 @@ function recordsToCatalog(rows) {
 }
 
 // static/sheet-cli.ts
+async function readAffiliateLinks(id2) {
+  const out2 = { cell: /* @__PURE__ */ new Map(), internet: /* @__PURE__ */ new Map() };
+  if (!(await tabsOf(id2)).some((t) => t.title === "Affiliation")) return out2;
+  const values = (await readTabs(id2, ["Affiliation"])).Affiliation ?? [];
+  const header = (values[0] ?? []).map((x) => String(x).trim());
+  const [f, s, st, link] = ["Finder", "Slug", "Status", "Tracking link"].map((h) => header.indexOf(h));
+  if ([f, s, st, link].some((i) => i < 0)) return out2;
+  for (const row of values.slice(1)) {
+    const url = String(row[link] ?? "").trim();
+    if (String(row[st] ?? "").trim() !== "Approved" || !/^https?:\/\//.test(url)) continue;
+    (String(row[f] ?? "").trim() === "Cell" ? out2.cell : out2.internet).set(String(row[s] ?? "").trim(), url);
+  }
+  return out2;
+}
 async function readCatalog(id2) {
   const values = await readTabs(id2, TABS.map((t) => t.name));
   const records = Object.fromEntries(TABS.map((t) => [t.name, valuesToRecords(t, values[t.name] ?? [])]));
   const catalog2 = recordsToCatalog(records);
   const problems2 = [];
+  const links = await readAffiliateLinks(process.env.AFFILIATION_SHEET_ID || id2);
+  const linked = [];
+  const applyLinks = (list, map, label) => {
+    for (const x of list) {
+      const url = map.get(x.slug);
+      if (!url || x.affiliate_base_url) continue;
+      x.affiliate_base_url = url;
+      x.affiliate_extension = null;
+      linked.push(`${label}:${x.slug}`);
+    }
+    for (const slug of map.keys()) if (!list.some((x) => x.slug === slug)) problems2.push(`Affiliation link for unknown ${label} slug "${slug}"`);
+  };
+  applyLinks(catalog2.carriers, links.cell, "cell");
+  applyLinks(catalog2.isps, links.internet, "internet");
   const carrierSlugs = new Set(catalog2.carriers.map((c2) => c2.slug));
   const ispSlugs = new Set(catalog2.isps.map((i) => i.slug));
   const dup = (list, what) => {
@@ -453,7 +487,7 @@ async function readCatalog(id2) {
     if (c2.is_active && !c2.networks.length) problems2.push(`Active carrier ${c2.slug} has no networks`);
     for (const p of c2.plans) if (p.is_active && p.price_monthly == null) problems2.push(`Active plan ${c2.slug} / ${p.name} has no price`);
   }
-  return { catalog: catalog2, problems: problems2 };
+  return { catalog: catalog2, problems: problems2, linked };
 }
 
 // static/update-catalog.ts
