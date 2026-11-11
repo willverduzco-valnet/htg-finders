@@ -1,6 +1,57 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Preview: isp-finder</title><link rel="stylesheet" href="https://static0.howtogeekimages.com/assets/static.1a5f42f5.css"><style>@media (prefers-color-scheme:dark){body{background:#191919}}</style></head><body><main class="w-content"><section class="wrapper w-static">
-<style>.htg-finder-intro{max-width:64rem;margin:0 auto 1.5rem;padding:0 4px;color:#191919}.htg-finder-intro h1{font-size:2rem;line-height:1.2;font-weight:700;margin:0 0 .75rem}.htg-finder-intro p{font-size:1.05rem;line-height:1.6;margin:0;color:#4a4a4a}@media (prefers-color-scheme:dark){.htg-finder-intro{color:#f1f1f1}.htg-finder-intro p{color:#b5b5b5}}</style>
+<style>.htg-finder-intro{max-width:64rem;margin:0 auto 1.5rem;padding:0 4px;color:#191919}.htg-finder-intro h1{font-size:2rem;line-height:1.2;font-weight:700;margin:0 0 .75rem}.htg-finder-intro p{font-size:1.05rem;line-height:1.6;margin:0;color:#4a4a4a}@media (prefers-color-scheme:dark){.htg-finder-intro{color:#f1f1f1}.htg-finder-intro p{color:#b5b5b5}}.htg-finder-guide{max-width:64rem;margin:3rem auto 0;padding:0 4px}.htg-finder-guide.htg-finder-guide h2,.htg-finder-guide.htg-finder-guide h3{line-height:1.3}.htg-finder-guide.htg-finder-guide h3{font-size:1.125rem;margin:1.5rem 0 .5rem}.htg-finder-guide.htg-finder-guide ul{margin:0 0 1rem;padding-left:1.4rem}.htg-finder-guide.htg-finder-guide li{list-style:disc;margin-bottom:.5rem}.htg-finder-guide.htg-finder-guide li a{word-break:normal}</style>
 <div class="htg-finder-intro"><h1>Find the fastest, cheapest internet where you live</h1><p>See which providers report service to the FCC in your area (fiber, cable, 5G home and satellite) and match plans to how your household actually uses the internet.</p></div>
 <div data-htg-finder="internet" data-cell-page="carrier-finder.html" data-isp-page="isp-finder.html" data-bundle-page="bundle-finder.html"></div>
 <script src="../finders.js"></script>
+<div class="htg-finder-guide">
+<h2>How the home internet finder works</h2>
+<p>Every internet provider in the US reports where it offers service to the FCC's Broadband Data Collection, home by home. We use those filings to list the providers that reach your ZIP code, the technology each one uses and the share of homes it covers. The current data is as of December 31, 2025.</p>
+<p>Then we match each provider to its cheapest plan that is fast enough for your household and rank the results on speed, cost and lag. Prices are what you actually pay in the first year: the promo price, the regular price after the promo, monthly equipment fees and one-time costs such as installation. A cheap promo that doubles after a few months doesn't win by default.</p>
+<p>A provider that reaches part of your ZIP code may not reach your street, so check your exact address on the provider's site before you order.</p>
+
+<h2>How much internet speed do you need?</h2>
+<p>Usually less than providers suggest. As a rough guide, each person needs about 10 Mbps for browsing and email, 25 Mbps for HD streaming, 40 Mbps for 4K streaming, and about 30 Mbps down and 20 Mbps up for video calls when working from home. People rarely do everything at once, so the finder counts each person's heaviest activity in full and the rest at a quarter, then rounds up to a common plan speed. A family of four that streams in HD and works from home lands at about 200 Mbps, not a gigabit.</p>
+<p>If your speed tests fall short of what you pay for, the bottleneck is often inside your home, not your plan. Read <a href="https://www.howtogeek.com/stop-paying-for-faster-internet-fix-these-7-home-network-bottlenecks-instead/">why upgrading your internet plan is often a waste of money</a> and <a href="https://www.howtogeek.com/wi-fi-speed-test-results-explained-what-do-they-actually-mean/">what your speed test results actually mean</a>.</p>
+
+<h2>Fiber, cable, 5G home or satellite?</h2>
+<ul>
+<li><strong>Fiber</strong> is the best choice if you can get it: fast in both directions, low lag, and you usually get the speed you pay for.</li>
+<li><strong>Cable</strong> is widely available and fast for downloads, but uploads are much slower, and some providers cap your monthly data.</li>
+<li><strong>5G home internet</strong> from T-Mobile, Verizon and AT&amp;T is often cheap, with no contract or data cap, but speeds vary by location and time of day.</li>
+<li><strong>Satellite</strong> reaches almost every home. Low-orbit service such as Starlink is fast enough for most households. Older satellite service is slow and laggy, so use it only when nothing else reaches you.</li>
+<li><strong>DSL</strong> runs over phone lines and is the slowest wired option.</li>
+</ul>
+
+<h2>Before you sign up</h2>
+<ul>
+<li>Ask what the price is after the promo ends, and whether the plan has a price lock.</li>
+<li>Check for equipment fees. Some providers include the router, others charge every month, and <a href="https://www.howtogeek.com/stop-replacing-your-isp-router-theyre-actually-good-now/">your provider's router may be all you need</a>.</li>
+<li>Read the contract terms. Early termination and unreturned-equipment fees add up: <a href="https://www.howtogeek.com/this-tool-saved-me-over-1000-in-a-battle-against-my-isp/">one of our writers fought a $1,000 bill to leave a provider</a>.</li>
+<li>Bundling with a cell plan can save money, but not always. The <a href="https://www.howtogeek.com/bundle-finder/">bundle finder</a> compares bundles with buying the two separately.</li>
+</ul>
+
+<section class="htg-finder-faq">
+<h2>Frequently asked questions</h2>
+<h3>Why does a provider show up if it doesn't serve my street?</h3>
+<p>The finder works at ZIP code level and shows the share of homes each provider reaches. A provider that reaches 40% of the homes in your ZIP code may or may not reach your address. Check your exact address on the provider's site.</p>
+<h3>How current are the prices and availability?</h3>
+<p>Availability comes from the FCC's latest release, as of December 31, 2025, and the FCC updates it about every six months. We review plans and prices regularly, but providers change their offers often, so confirm the price before you order.</p>
+<h3>Is the cheapest plan always the best value?</h3>
+<p>No. The finder compares the first-year cost including equipment and fees, and it only picks plans that are fast enough for your household. A plan that is cheap for three months and expensive after that ranks lower.</p>
+<h3>What if only one wired provider serves my area?</h3>
+<p>That's common. You can often still save with 5G home internet or satellite as an alternative, by asking your provider for a better rate, or by bundling with your cell plan. The finder points these out when it finds only one wired option.</p>
+<h3>How does How-To Geek make money from this tool?</h3>
+<p>Some providers pay us a commission when you sign up through our links, and partner providers can appear first, labeled "Featured." Commissions never change a provider's speed, price or score.</p>
+</section>
+
+<h2>More from How-To Geek</h2>
+<ul>
+<li><a href="https://www.howtogeek.com/these-router-tweaks-sped-up-my-wi-fi-so-much-that-i-downgraded-my-internet-plan/">These 5 router tweaks sped up my Wi-Fi so much that I downgraded my internet plan</a></li>
+<li><a href="https://www.howtogeek.com/i-thought-fiber-internet-would-fix-everything-but-it-only-revealed-the-real-problem-with-my-home-network/">I upgraded to fiber and my Wi-Fi still lagged: how to find the hidden bottlenecks</a></li>
+<li><a href="https://www.howtogeek.com/not-everybody-needs-a-wi-fi-mesh-network/">Please stop buying expensive mesh Wi-Fi systems for small homes</a></li>
+<li><a href="https://www.howtogeek.com/get-online-when-your-isp-is-down/">5 ways to get online when your ISP is down</a></li>
+<li><a href="https://www.howtogeek.com/carrier-finder/">Find the cell carrier with the best coverage where you live</a></li>
+</ul>
+</div>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://www.howtogeek.com/isp-finder/#tool","name":"Home Internet Providers Near Me by ZIP Code","url":"https://www.howtogeek.com/isp-finder/","description":"Enter your ZIP to see every internet provider the FCC lists for your area, with fiber, cable, 5G and satellite plans compared by speed, real cost and data caps.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"How-To Geek","url":"https://www.howtogeek.com/"}},{"@type":"FAQPage","@id":"https://www.howtogeek.com/isp-finder/#faq","url":"https://www.howtogeek.com/isp-finder/","mainEntity":[{"@type":"Question","name":"Why does a provider show up if it doesn't serve my street?","acceptedAnswer":{"@type":"Answer","text":"The finder works at ZIP code level and shows the share of homes each provider reaches. A provider that reaches 40% of the homes in your ZIP code may or may not reach your address. Check your exact address on the provider's site."}},{"@type":"Question","name":"How current are the prices and availability?","acceptedAnswer":{"@type":"Answer","text":"Availability comes from the FCC's latest release, as of December 31, 2025, and the FCC updates it about every six months. We review plans and prices regularly, but providers change their offers often, so confirm the price before you order."}},{"@type":"Question","name":"Is the cheapest plan always the best value?","acceptedAnswer":{"@type":"Answer","text":"No. The finder compares the first-year cost including equipment and fees, and it only picks plans that are fast enough for your household. A plan that is cheap for three months and expensive after that ranks lower."}},{"@type":"Question","name":"What if only one wired provider serves my area?","acceptedAnswer":{"@type":"Answer","text":"That's common. You can often still save with 5G home internet or satellite as an alternative, by asking your provider for a better rate, or by bundling with your cell plan. The finder points these out when it finds only one wired option."}},{"@type":"Question","name":"How does How-To Geek make money from this tool?","acceptedAnswer":{"@type":"Answer","text":"Some providers pay us a commission when you sign up through our links, and partner providers can appear first, labeled \"Featured.\" Commissions never change a provider's speed, price or score."}}]}]}</script>
 </section></main></body></html>
