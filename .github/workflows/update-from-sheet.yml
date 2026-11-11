@@ -8,12 +8,22 @@ on:
     - cron: "17 9 * * *"
 permissions:
   contents: write
+  pages: write
 concurrency:
   group: update-from-sheet
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - name: Check the settings
+        env:
+          HAS_KEY: ${{ secrets.GOOGLE_SA_KEY != '' }}
+          SHEET: ${{ vars.FINDERS_SHEET_ID }}
+        run: |
+          if [ "$HAS_KEY" != "true" ] || [ -z "$SHEET" ]; then
+            echo "::error::Add the secret GOOGLE_SA_KEY and the variable FINDERS_SHEET_ID in Settings > Secrets and variables > Actions."
+            exit 1
+          fi
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -32,3 +42,8 @@ jobs:
           fi
           git -c user.name="htg-finders bot" -c user.email="actions@users.noreply.github.com" commit -m "Update catalog from the inputs sheet"
           git push
+          # Pushes made by this job's token may not start a Pages build on their own, so ask for one.
+          curl -sf -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null || echo "::warning::Couldn't request a Pages build"
+        env:
+          GH_TOKEN: ${{ github.token }}
