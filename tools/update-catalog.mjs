@@ -134,7 +134,7 @@ var TECHS = ["fiber", "cable", "dsl", "fixed_wireless", "5g_home", "satellite_le
 var TABS = [
   {
     name: "Carriers",
-    note: "One row per cell carrier. Active = shown in the finder. Promoted = can be the Featured pick (rank breaks ties).",
+    note: "One row per cell carrier. Active = shown in the finder. Promoted = can be the Featured pick (rank breaks ties; rank 0 = lead partner, featured unless already top 3).",
     cols: [
       c("slug", "Slug (don't change)", "text", { width: 150 }),
       c("name", "Name", "text", { width: 160 }),
